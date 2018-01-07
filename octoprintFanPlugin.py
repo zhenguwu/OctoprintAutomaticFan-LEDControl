@@ -34,6 +34,7 @@ def fan(comm, parsed_temps):
             GPIO.output(20, GPIO.LOW)
             #print "Extruder 3 Fan Off"
     return parsed_temps
+
 __plugin_name__ = "Octoprint Automatic Fan Control"
 __plugin_author__ = "Michaelwu21"
 __plugin_version__ = "1.0"
