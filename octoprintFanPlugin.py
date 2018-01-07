@@ -24,16 +24,13 @@ def fan(comm, parsed_temps):
             GPIO.output(16, GPIO.HIGH)
             #print "Extruder 2 Fan On"
         else:
-            pass
             GPIO.output(16, GPIO.LOW)
             #print "Extruder 2 Fan Off"
     if parsed_temps.has_key('T2'):
         if int(list(parsed_temps['T2'])[0]) >= 50:
-            pass
             GPIO.output(20, GPIO.HIGH)
             #print "Extruder 3 Fan On"
         else:
-            pass
             GPIO.output(20, GPIO.LOW)
             #print "Extruder 3 Fan Off"
     return parsed_temps
