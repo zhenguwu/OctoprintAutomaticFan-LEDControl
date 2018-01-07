@@ -10,6 +10,7 @@ def initPins():
     GPIO.output(16, GPIO.LOW)
     GPIO.setup(20, GPIO.OUT)
     GPIO.output(20, GPIO.LOW)
+    
 def fan(comm, parsed_temps):
     if parsed_temps.has_key('T0'):
         if int(list(parsed_temps['T0'])[0]) >= 50:
