@@ -25,7 +25,7 @@ def fan(comm, parsed_temps):
             #print "Extruder 2 Fan On"
         else:
             pass
-            #GPIO.output(12, GPIO.LOW)
+            GPIO.output(16, GPIO.LOW)
             #print "Extruder 2 Fan Off"
     if parsed_temps.has_key('T2'):
         if int(list(parsed_temps['T2'])[0]) >= 50:
@@ -34,7 +34,7 @@ def fan(comm, parsed_temps):
             #print "Extruder 3 Fan On"
         else:
             pass
-            #GPIO.output(12, GPIO.LOW)
+            GPIO.output(20, GPIO.LOW)
             #print "Extruder 3 Fan Off"
     return parsed_temps
 __plugin_name__ = "Octoprint Automatic Fan Control"
