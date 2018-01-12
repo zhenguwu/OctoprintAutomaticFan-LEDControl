@@ -13,7 +13,7 @@ def initPins():
     GPIO.output(20, GPIO.LOW)
     
 def fan(comm, parsed_temps):
-    invert = false #--> based off the type of relay, low trigger vs high trigger
+    invert = False #--> based off the type of relay, low trigger vs high trigger
     if parsed_temps.has_key('T0'):
         if int(list(parsed_temps['T0'])[0]) >= 50:
             if invert:
