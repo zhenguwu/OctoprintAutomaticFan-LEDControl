@@ -15,46 +15,66 @@ def initPins():
 def fan(comm, parsed_temps):
     invert = False #--> based off the type of relay, low trigger vs high trigger
     if parsed_temps.has_key('T0'):
-        if int(list(parsed_temps['T0'])[0]) >= 50:
+        
+        ext1 = int(list(parsed_temps['T0'])[0])
+        if ext1 >= 50:
             if invert:
                 GPIO.output(12, GPIO.LOW)
             else:
                 GPIO.output(12, GPIO.HIGH)
             #print "Extruder 1 Fan On"
-        else:
+        elif ext1 < 50:
             if invert:
                 GPIO.output(12, GPIO.HIGH)
             else:
                 GPIO.output(12, GPIO.LOW)
             #print "Extruder 1 Fan Off"
-        
+        else:
+            if invert:
+                GPIO.output(12, GPIO.LOW)
+            else:
+                GPIO.output(12, GPIO.HIGH)
+                
     if parsed_temps.has_key('T1'):
-        if int(list(parsed_temps['T1'])[0]) >= 50:
+        ext2 = int(list(parsed_temps['T1'])[0])
+        if ext2 >= 50:
             if invert:
                 GPIO.output(16, GPIO.LOW)
             else:
                 GPIO.output(16, GPIO.HIGH)
             #print "Extruder 2 Fan On"
-        else:
+        elif ext2 < 50:
             if invert:
                 GPIO.output(16, GPIO.HIGH)
             else:
                 GPIO.output(16, GPIO.LOW)
             #print "Extruder 2 Fan Off"
+        else:
+            if invert:
+                GPIO.output(16, GPIO.LOW)
+            else:
+                GPIO.output(16, GPIO.HIGH)
             
     if parsed_temps.has_key('T2'):
-        if int(list(parsed_temps['T2'])[0]) >= 50:
+        ext3 = int(list(parsed_temps['T2'])[0])
+        if ext3 >= 50:
             if invert:
                 GPIO.output(20, GPIO.LOW)
             else:
                 GPIO.output(20, GPIO.HIGH)
             #print "Extruder 3 Fan On"
-        else:
+        elif ext3 < 50:
             if invert:
                 GPIO.output(20, GPIO.HIGH)
             else:
                 GPIO.output(20, GPIO.LOW)
             #print "Extruder 3 Fan Off"
+        else:
+            if invert:
+                GPIO.output(20, GPIO.LOW)
+            else:
+                GPIO.output(20, GPIO.HIGH)
+                
     return parsed_temps
 
 __plugin_name__ = "Octoprint Automatic Fan Control"
