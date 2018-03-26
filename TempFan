@@ -1,0 +1,121 @@
+from __future__ import absolute_import
+import octoprint.plugin
+import RPi.GPIO as GPIO
+
+def initPins():
+    GPIO.setmode(GPIO.BCM)
+    #uses gpio pins 12, 16, and 20 from bcm wiring layout
+    GPIO.setup(12, GPIO.OUT)
+    GPIO.output(12, GPIO.LOW)
+    GPIO.setup(16, GPIO.OUT)
+    GPIO.output(16, GPIO.LOW)
+    GPIO.setup(20, GPIO.OUT)
+    GPIO.output(20, GPIO.LOW)
+    GPIO.setup(21, GPIO.OUT)
+    GPIO.setup(21, GPIO.LOW)
+    #setting GPIO 4 to high when printer is preheated
+    GPIO.setup(4, GPIO.OUT)
+    GPIO.output(4, GPIO.LOW)
+    
+def fan(comm, parsed_temps):
+    invert = False #--> based off the type of relay, low trigger vs high trigger
+    if parsed_temps.has_key('T0'):
+        
+        ext1 = int(list(parsed_temps['T0'])[0])
+        if ext1 >= 50:
+            if invert:
+                GPIO.output(12, GPIO.LOW)
+            else:
+                GPIO.output(12, GPIO.HIGH)
+        elif ext1 < 50:
+            if invert:
+                GPIO.output(12, GPIO.HIGH)
+            else:
+                GPIO.output(12, GPIO.LOW)
+        else:
+            if invert:
+                GPIO.output(12, GPIO.LOW)
+            else:
+                GPIO.output(12, GPIO.HIGH)
+                
+    if parsed_temps.has_key('T1'):
+        ext2 = int(list(parsed_temps['T1'])[0])
+        if ext2 >= 50:
+            if invert:
+                GPIO.output(16, GPIO.LOW)
+            else:
+                GPIO.output(16, GPIO.HIGH)
+        elif ext2 < 50:
+            if invert:
+                GPIO.output(16, GPIO.HIGH)
+            else:
+                GPIO.output(16, GPIO.LOW)
+        else:
+            if invert:
+                GPIO.output(16, GPIO.LOW)
+            else:
+                GPIO.output(16, GPIO.HIGH)
+            
+    if parsed_temps.has_key('T2'):
+        ext3 = int(list(parsed_temps['T2'])[0])
+        if ext3 >= 50:
+            if invert:
+                GPIO.output(20, GPIO.LOW)
+            else:
+                GPIO.output(20, GPIO.HIGH)
+        elif ext3 < 50:
+            if invert:
+                GPIO.output(20, GPIO.HIGH)
+            else:
+                GPIO.output(20, GPIO.LOW)
+        else:
+            if invert:
+                GPIO.output(20, GPIO.LOW)
+            else:
+                GPIO.output(20, GPIO.HIGH)
+    if parsed_temps.has_key('T3'):
+        ext4 = int(list(parsed_temps['T3'])[0])
+        if ext4 >= 50:
+            if invert:
+                GPIO.output(21, GPIO.LOW)
+            else:
+                GPIO.output(21, GPIO.HIGH)
+        elif ext4 < 50:
+            if invert:
+                GPIO.output(21, GPIO.HIGH)
+            else:
+                GPIO.output(21, GPIO.LOW)
+        else:
+            if invert:
+                GPIO.output(21, GPIO.LOW)
+            else:
+                GPIO.output(21, GPIO.HIGH)       
+    if parsed_temps.has_key('T0'):
+        ext1 = int(list(parsed_temps['T0'])[1])
+        if ext1 >= 50:
+            GPIO.output(4, GPIO.HIGH)
+        elif parsed_temps.has_key('T1'):
+            ext2 = int(list(parsed_temps['T1'])[1])
+            if ext2 >= 50:
+                GPIO.output(4, GPIO.HIGH)
+            elif parsed_temps.has_key('T2'):
+                ext3 = int(list(parsed_temps['T2'])[1])
+                if ext3 >= 50:
+                    GPIO.output(4, GPIO.HIGH)
+                elif parsed_temps.has_key('T3'):
+                    ext4 = int(list(parsed_temps['T3'])[1])
+                    if ext4 >= 50:
+                        GPIO.output(4, GPIO.HIGH)
+                    else:
+                        GPIO.output(4, GPIO.LOW)
+    return parsed_temps
+
+__plugin_name__ = "Octoprint Automatic Fan and LED Control"
+__plugin_author__ = "Michaelwu21"
+__plugin_author_email__ = "Michaelwu21@gmail.com"
+__plugin_version__ = "1.0"
+__plugin_description__ = """Automatically adjust extruder fan and leds based off extruder temperature"""
+__plugin_implementation__ = initPins()
+__plugin_hooks__ = {
+    "octoprint.comm.protocol.temperatures.received": fan
+}
