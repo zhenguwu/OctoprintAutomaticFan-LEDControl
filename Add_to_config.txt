@@ -1,0 +1,27 @@
+events:
+  enabled: true
+  subscriptions:
+  - command: python3 ~/.octoprint/12864led/12864.py 0
+    event: Disconnected
+    type: system
+  - command: python3 ~/.octoprint/12864led/12864.py 1
+    event: Connected
+    type: system
+  - command: python3 ~/.octoprint/12864led/12864.py 2
+    event: PrintStarted
+    type: system
+  - command: python3 ~/.octoprint/12864led/12864.py 3
+    event: PrintDone
+    type: system
+  - command: python3 ~/.octoprint/12864led/12864.py 1
+    event: PrintCancelled
+    type: system
+  - command: python3 ~/.octoprint/12864led/12864.py 4
+    event: PrintPaused
+    type: system
+  - command: python3 ~/.octoprint/12864led/12864.py 2
+    event: PrintResumed
+    type: system
+  - command: python3 ~/.octoprint/12864led/12864.py 0
+    event: Shutdown
+    type: system
